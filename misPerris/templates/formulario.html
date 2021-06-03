@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+{% endblock css %}
+   
+{% block contenido %}
+        <section id="bienvenida">
+            <h2>Formulario de inscripcion de adopcion de mascotas</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae necessitatibus fugit quam laboriosam
+                omnis ullam, atque autem consequuntur beatae quae quibusdam libero temporibus perferendis iusto a
+                blanditiis, commodi velit exercitationem.</p>
+        </section>
+
+        <section id="formulario">
+
+            <form class="form-registro" action="" method="post" onsubmit="return validarFormulario()">
+
+                <h2 class="form-titulo">Creacion de cuenta de usuario</h2>
+
+                <div class="contenedor-input">
+                    <input class="col-sm" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre" required minlength="3" pattern="[A-Za-z ]{3,45}" title="solo letras entre 3 a 45 caracteres">
+                    <input class="col-sm" type="text" name="txtRut" id="txtRut" placeholder="ingrese rut ej. 12345678-9" required minlength="9" maxlength="10">
+                    <input class="col-sm" type="date" name="txtFechaNaci" id="txtFechaNaci" required>
+                    <input class="col-sm" type="email" name="txtEmail" id="txtEmail" placeholder="ingrese email" required>
+                    <input class="col-sm" type="text" name="txtUsuario" id="txtUsuario" placeholder="ingrese usuario" required minlength="3" maxlength="10">
+                    <input class="col-sm" type="password" name="txtPass" id="txtPass" placeholder="ingrese password" required minlength="8" maxlength="12">
+                    <input class="col-xl" type="text" name="txtFono" id="txtFono" placeholder="ingrese fono" required minlength="8" pattern="[0-9]{8,9}" title="ingrese un telefono de casa ej. 252554587">
+
+                    <input class="btn-registrar" type="submit" value="Registrar">
+                    <input class="btn-registrar" type="reset" value="Limpiar">
+                    <input class="btn-registrar" type="button" value="Accion" id="btnAccion">
+                </div>
+            </form>
+
+        </section>
+{% endblock contenido %}
+
+{% block js %}
+       <script src="{% static 'js/scripts.js' %}"></script>
+       <script>
+           $(document).ready(function() {
+               
+                $("#btnAccion").click(function() {
+                    var rut = $("#txtRut").val();
+                    alert('pincho un boton, su rut es:'+rut);    
+                });
+
+           });
+       </script>
+{% endblock js %}  
+    

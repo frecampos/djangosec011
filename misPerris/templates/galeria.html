@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'dist/css/lightbox.css' %}">
+{% endblock css %}
+
+{% block contenido %}
+        <section id="bienvenida">
+            <h2>Galeria de mascotas para la venta</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae necessitatibus fugit quam laboriosam
+                omnis ullam, atque autem consequuntur beatae quae quibusdam libero temporibus perferendis iusto a
+                blanditiis, commodi velit exercitationem.</p>
+        </section>
+        <section id="blog">
+            <h3>las ultimas mascotas rescatadas</h3>
+            <input type="button" value="Recueperar Dolar" onclick="recupera()">
+            <div id="valor_dolar"></div>
+            <script>
+                function recupera() {
+                    fetch("https://mindicador.cl/api/dolar")
+                    .then(
+                        function (response) {
+                            if (response.status!=200) {
+                                alert("problemas de conexion con el servidor");
+                                return;
+                            }
+                            console.log('Estado de la respuesta:'+response.status);
+                            // recuperar todos los datos desde esa respuesta
+                            response.json().then(
+                                function (data) {
+                                    console.log(data);
+                                    var dolar= data.serie[0].valor;
+                                    document.getElementById('valor_dolar').innerHTML=dolar;
+                                }
+                            );
+                        }
+                    );
+                }
+            </script>
+            <h3>Busquedas y Filtros</h3>
+
+            <!-- categoria -->
+            <form action="{% url 'FILTROC' %}" method="post">
+                {% csrf_token %}
+                Seleccione Categoria a Filtrar:
+                <select name="cboCategoria" id="cboCategoria">
+                    {% for reg in categorias %}
+                    <option value="{{reg.nombre}}">{{reg.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Filtrar">
+                <input type="button" value="Todos" onclick="javascript:location.href='/galeria/'">
+            </form>
+            <!-- filtro palabras claves -->
+             <form action="{% url 'FILTROPC' %}" method="post">
+                {% csrf_token %}
+                Buscar por descripcion:
+                <input type="text" name="txtDesc">
+                <input type="submit" value="Filtrar">
+            </form>           
+            <!-- filtro por nombre -->
+            <form action="{% url 'FILTRON' %}" method="post">
+                {% csrf_token %}
+                Buscar por nombre de mascota:
+                <input type="text" name="txtNombre">
+                <input type="submit" value="Filtrar">
+            </form>    
+
+            <div class="contenedor">
+                {% for reg in mascotas %}
+                <article>
+                    <a href="{{reg.imagen.url}}" data-lightbox="perros" data-title="{{reg.descripcion}}">
+                        <img src="{{reg.imagen.url}}" alt="">
+                    </a>
+                    <h4>{{reg.nombre}}</h4>
+                    <h5>
+                    <a href="/ficha/{{reg.nombre}}/">Ver Ficha</a>
+                    </h5>
+                </article>
+                 {% endfor %}
+            </div>
+            <div style="text-align: center;color: red;font-size: xx-large;">
+                {{cantidad}}
+            </div>
+        </section>
+{% endblock contenido %}
+
+{% block js %}
+ <script src="{% static 'dist/js/lightbox-plus-jquery.js' %}"></script>
+{% endblock js %}
+   

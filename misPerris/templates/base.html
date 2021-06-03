@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Perris</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontello.css' %}">
+    {% block css %}
+    
+    {% endblock css %}
+</head>
+
+<body>
+    <!-- cabecera de la pagina web -->
+    <header>
+        <!-- capa que contiene los elementos de la cabecera -->
+        <div class="contenedor">
+            <h1 class="icon-guidedog">Mis Perris</h1>
+            <!-- permite activar el menu lateral (MOVIL) -->
+            <input type="checkbox" name="" id="menu-bar">
+            <label class="icon-credit-card" for="menu-bar"></label>
+            <!-- barra de navegacion del menu -->
+            <nav class="menu">
+                <a href="{% url 'IND' %}">Inicio</a>
+                <a href="{% url 'GALE' %}">Galeria</a>
+                <a href="{% url 'FORMU' %}">Formulario</a>
+                <a href="{% url 'QUIENES' %}">Quienes Somos</a>
+                <a href="">Contacto</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'ADMINUSER' %}">Admin Usuario</a>
+                    <a href="{% url 'REG' %}">Admin. Mascota</a>
+                    <a href="{% url 'CERRAR' %}">Cerrar Sesion</a>
+                    <a href="">Bienvenido: {{user.first_name}} {{user.last_name}}</a>
+                {% else %}
+                    <a href="{% url 'LOGIN' %}">Login</a>
+                    <a href="{% url 'CREARU' %}">Registrar Usuario</a>
+                {% endif %}
+                
+                
+            </nav>
+        </div>
+    </header>
+    <!-- sector principal de la pagina -->
+    <main>
+        <!-- secciones de contenido -->
+        <section id="banner">
+            <img src="{% static 'img/perro1.jpg' %}" alt="">
+            <div class="contenedor">
+                <h2>Mascotas Felices en mis perris</h2>
+                <p>Cual es la mejor mascota para usted</p>
+                <a href="">Leer Mas</a>
+            </div>
+        </section>
+
+        <!-- region editable -->
+        {% block contenido %}
+        
+        {% endblock contenido %}
+    </main>
+    {% block js %}
+    
+    {% endblock js %}
+    <footer>
+        <h3 style="text-align: center;font-size: medium;height: 100px;">
+            <p style="margin: 50px;">Mis Perris, Agencia de Adopcion de Mascotas</p>
+        </h3>
+    </footer>
+</body>
+
+</html>

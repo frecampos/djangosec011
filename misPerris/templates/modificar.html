@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/formulario.css' %}">
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+{% endblock css %}
+
+{% block contenido %}
+<section id="bienvenida">
+    <h2>Formulario Modificacion mascota</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae necessitatibus fugit quam laboriosam
+        omnis ullam, atque autem consequuntur beatae quae quibusdam libero temporibus perferendis iusto a
+        blanditiis, commodi velit exercitationem.</p>
+</section>
+
+<section id="formulario">
+
+    <form class="form-registro" action="{% url 'MODIFICAR' %}" enctype="multipart/form-data" method="post"
+        onsubmit="return validarFormulario()">
+        {% csrf_token %}
+        <h2 class="form-titulo">Modificar Mascota</h2>
+
+        <div class="contenedor-input">
+            <input class="col-chica" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre" required
+                minlength="3" value="{{mascota.nombre}}">
+            <input class="col-chica" type="number" name="txtEdad" id="txtEdad" placeholder="ingrese edad" required min=1
+                max=80 value="{{mascota.edad}}">
+            <input class="col-grande" style="margin-top: 15px;" type="text" name="txtDesc" id="txtDesc" required value="{{mascota.descripcion}}">
+
+            <div  style="margin-top: 15px;">Imagen Actual: <a href="{{mascota.imagen.url}}"> {{mascota.imagen.url}} </a> </div>
+            <input class="col-grande" style="margin-top: 15px;" type="file" name="txtImg" id="txtImg">
+            <select class="col-grande" style="margin-top: 15px;padding: 10px;margin-bottom: 15px;" name="cboCategoria"
+                id="cboCategoria">
+                {% for reg in cate %}
+                    {% if reg.nombre == mascota.categoria.nombre %}
+                        <option selected>{{reg.nombre}}</option>
+                    {% else %}
+                        <option>{{reg.nombre}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <input class="btn-registrar" type="submit" value="Modificar">
+            <input class="btn-registrar" type="button" value="Cancelar">
+
+        </div>
+    </form>
+    <div style="text-align: center;color: red;">{{mensaje}}</div>
+</section>
+
+{% endblock contenido %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+{% endblock js %}

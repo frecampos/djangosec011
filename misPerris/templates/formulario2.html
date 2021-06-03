@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Perris</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/formulario.css">
+    <script src="js/sweetalert2.all.min.js"></script>
+    
+    <script src="lib/jquery.js"></script>
+    <script src="dist_jqv/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    <!-- cabecera de la pagina web -->
+    <header>
+        <!-- capa que contiene los elementos de la cabecera -->
+        <div class="contenedor">
+            <h1 class="icon-guidedog">Mis Perris</h1>
+            <!-- permite activar el menu lateral (MOVIL) -->
+            <input type="checkbox" name="" id="menu-bar">
+            <label class="icon-credit-card" for="menu-bar"></label>
+            <!-- barra de navegacion del menu -->
+            <nav class="menu">
+                <a href="index.html">Inicio</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="formulario.html">Formulario</a>
+                <a href="">Quienes Somos</a>
+            </nav>
+        </div>
+    </header>
+    <!-- sector principal de la pagina -->
+    <main>
+        <!-- secciones de contenido -->
+        <section id="banner">
+            <img src="img/perro1.jpg" alt="">
+            <div class="contenedor">
+                <h2>Mascotas Felices en mis perris</h2>
+                <p>Cual es la mejor mascota para usted</p>
+                <a href="">Leer Mas</a>
+            </div>
+        </section>
+
+        <section id="bienvenida">
+            <h2>Formulario de inscripcion de adopcion de mascotas</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae necessitatibus fugit quam laboriosam
+                omnis ullam, atque autem consequuntur beatae quae quibusdam libero temporibus perferendis iusto a
+                blanditiis, commodi velit exercitationem.</p>
+        </section>
+        <script>
+            $(document).ready(function() {
+                
+                $("#formu").validate({
+                    rules:{
+                        txtNombre:{
+                            required: true,
+                            minlength: 3
+                        },
+                        txtRut:{
+                            required: true,
+                            minlength: 9,
+                            maxlength: 10
+                        },
+                        txtPass2:{
+                            required: true,
+                            minlength: 8,
+                            maxlength: 12,
+                            equalTo: "#txtPass1"
+                        }
+                    },
+                    messages:{
+                        txtNombre:{
+                            required: "el nombre es requerido",
+                            minlength: "minimo largo 3 caracteres"
+                        },
+                        txtRut:{
+                            required: "el rut es requerido",
+                            minlength: "minimo largo del rut 9 caracteres",
+                            maxlength: "maximo largo del rut 10 caracteres"
+                        },
+                        txtPass1:{
+                            required: "contraseña requerida",
+                            minlength: "minimo largo 8 caracteres",
+                            maxlength: "maximo largo 12 caracteres"
+                        },
+                        txtPass2:{
+                            required: "es necesario volver a confirmar contraseña",
+                            minlength: "minimo largo 8 caracteres",
+                            maxlength: "maximo largo 12 caracteres",
+                            equalTo: "las contraseñas deben ser iguales"
+                        },
+                        txtFechaNaci:{
+                            required:"la fecha de nacimiento es requerida"
+                        },
+                        txtUsuario:{
+                            required: "nombre de usuario es requerido",
+                            minlength: "minimo largo 3 caracteres",
+                            maxlength: "maximo largo 10 caracteres"
+                        }
+                    }
+                });
+
+            });
+        </script>
+        <section id="formulario">
+
+            <form class="form-registro" id="formu" action="" method="post" onsubmit="return validarFormulario()">
+
+                <h2 class="form-titulo">Creacion de cuenta de usuario</h2>
+
+                <div class="contenedor-input">
+                    <input class="col-xl" type="text" name="txtNombre" id="txtNombre" placeholder="ingrese nombre"  pattern="[A-Za-z ]{3,45}" title="solo letras entre 3 a 45 caracteres">
+                    <input class="col-xl" type="text" name="txtRut" id="txtRut" placeholder="ingrese rut ej. 12345678-9" >
+                    <input class="col-xl" type="date" name="txtFechaNaci" id="txtFechaNaci" required>
+                    <input class="col-xl" type="email" name="txtEmail" id="txtEmail" placeholder="ingrese email" required>
+                    <input class="col-xl" type="text" name="txtUsuario" id="txtUsuario" placeholder="ingrese usuario" required minlength="3" maxlength="10">
+                    <input class="col-xl" type="password" name="txtPass1" id="txtPass1" placeholder="ingrese password" required minlength="8" maxlength="12" >
+                    <input class="col-xl" type="password" name="txtPass2" id="txtPass2" placeholder="ingrese nuevamente la password">
+                    <input class="col-xl" type="text" name="txtFono" id="txtFono" placeholder="ingrese fono" required minlength="8" pattern="[0-9]{8,9}" title="ingrese un telefono de casa ej. 252554587">
+
+                    <input class="btn-registrar" type="submit" value="Registrar">
+                    <input class="btn-registrar" type="reset" value="Limpiar">
+                   
+                </div>
+            </form>
+
+        </section>
+       <script src="js/scripts.js"></script>
+
+       <script>
+           $(document).ready(function() {
+               
+                $("#btnAccion").click(function() {
+                    var rut = $("#txtRut").val();
+                    alert('pincho un boton, su rut es:'+rut);    
+                });
+
+           });
+       </script>
+    </main>
+
+</body>
+
+</html>

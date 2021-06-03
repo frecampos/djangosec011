@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'dist/css/lightbox.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+{% endblock css %}
+
+{% block contenido %}
+<section id="bienvenida">
+    <h2>Galeria de mascotas para la venta</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae necessitatibus fugit quam laboriosam
+        omnis ullam, atque autem consequuntur beatae quae quibusdam libero temporibus perferendis iusto a
+        blanditiis, commodi velit exercitationem.</p>
+</section>
+<section id="blog">
+    <h3>Ficha de la Mascota</h3>
+    <div class="contenedor">
+        <article>
+            <!-- carrusel -->
+            <section style="width: 300px; height: 300px;">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="{{mascota.imagen.url}}" width="300px" height="300px" class="d-block w-100"
+                                alt="...">
+                        </div>
+
+                        {% for reg in galeria %}
+                        <div class="carousel-item">
+                            <img src="{{reg.imagen.url}}" width="300px" height="300px" class="d-block w-100" alt="...">
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
+        </article>
+        <article>
+            <!-- descripcion mascota -->   
+            <h4>Nombre:{{mascota.nombre}}</h4>
+            <h4>Edad:{{mascota.edad}}</h4>
+            <h4>Descripcion:{{mascota.descripcion}}</h4>
+            <h4>Categoria:{{mascota.categoria.nombre}}</h4>
+        </article>
+
+    </div>
+    <div>
+        {% if user.is_authenticated %}
+            <h3>usuario {{user.first_name}} me quiere adoptar</h3>
+            <button onclick="javascript:location.href='/adoptar/{{mascota.nombre}}/'">Adoptame</button>
+        {% endif %}
+
+
+    </div>
+    <div style="text-align: center;color: red;font-size: x-large;">
+        {{mensaje}}
+    </div>
+</section>
+
+
+{% endblock contenido %}
+
+{% block js %}
+<script src="{% static 'dist/js/lightbox-plus-jquery.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+{% endblock js %}
